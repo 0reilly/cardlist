@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "https://productroles.herokuapp.com/"
+    baseURL: "localhost:3006/api/v1/restaurants"
 });

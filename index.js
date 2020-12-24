@@ -6,7 +6,7 @@ const proConfig = {
 }
 
 
-const devConfig = {
+ const devConfig = {
 user: process.env.PG_USER,
 password: process.env.PG_PASSWORD,
 host: process.env.PG_HOST,
