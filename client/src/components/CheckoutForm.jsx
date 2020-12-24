@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 import "./App.css";
 import {
   CardElement,
@@ -14,12 +15,13 @@ const CheckoutForm= (props) => {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
+  let history = useHistory();
   
   useEffect(() => {
     
     // Create PaymentIntent as soon as the page loads
     window
-      .fetch("http://localhost:3006/create-payment-intent", {
+      .fetch("/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -78,6 +80,9 @@ const CheckoutForm= (props) => {
     }
   };
 
+  const goHome = () => {
+    history.push("/")
+  }
   const handleForm = () => {
       
         props.form();
@@ -106,12 +111,9 @@ const CheckoutForm= (props) => {
       {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
         Payment succeeded! View your new listing on the Home page! 
-        <a
-          href={`http://localhost:3000/`}
-        >
-          {" "}
+        <button className="btn btn-primary" onClick={goHome}>
           Home.
-        </a> An order summary will be emailed to you.
+        </button> An order summary will be emailed to you.
       </p>
     </form>
   );

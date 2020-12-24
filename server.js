@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const db = require(".");
+const db = require("./db");
 const path = require("path")
 
 const stripe = require('stripe')('sk_test_51HX92ADV5bqQz6pN7MO2Mw29Rvr4MwGbWCobGAooTqMmx6vuZI3ZjYhAaA1N7msSDhza736yVjUpRrqVEgep2FM100GEOFJEwZ');
@@ -11,7 +11,7 @@ const app = express();
 
 
 app.use(cors());
-//app.use(express.static('.'));
+app.use(express.static('.'));
 
 const YOUR_DOMAIN = '';
 
