@@ -72,7 +72,7 @@ app.get("/api/v1/tap/cards/:customer", async (req, res) => {
 //Get all restaurants
 app.get("/api/v1/restaurants", async (req, res) => {
     try {
-        const results = await db.query("select * from restaurants");
+        const results = await db.query("select * from jobs");
     res.status(200).json({
         status: "success",
         results: results.rows.length,
@@ -92,7 +92,7 @@ app.get("/api/v1/restaurants", async (req, res) => {
 //Get induvidual restaurant
 app.get("/api/v1/restaurants/:id", async (req, res) => {
     try{
-        const restaurant = await db.query("select * from restaurants where id = $1", [req.params.id]);
+        const restaurant = await db.query("select * from jobs where id = $1", [req.params.id]);
         const reviews = await db.query("select * from reviews where restaurant_id = $1", [req.params.id]);
         res.status(200).json({
             status: "success",
@@ -112,7 +112,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
 app.post("/api/v1/restaurants", async (req, res) =>{
     try{
         console.log(req)
-        const results = await db.query("INSERT INTO restaurants (name, location, primary_tag, description, link) values ($1, $2, $3, $4, $5) returning *", [req.body.name, req.body.location, req.body.primary_tag, req.body.description, req.body.link])
+        const results = await db.query("INSERT INTO jobs (name, location, primary_tag, description, link) values ($1, $2, $3, $4, $5) returning *", [req.body.name, req.body.location, req.body.primary_tag, req.body.description, req.body.link])
         console.log(results)
         res.status(201).json({
             status: "success",
