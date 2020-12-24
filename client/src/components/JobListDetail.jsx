@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react'
 import { useHistory ,useParams} from "react-router-dom"
-import RestaurantFinder from "../apis/RestaurantFinder"
+//import RestaurantFinder from "../apis/RestaurantFinder"
 import { RestaurantsContext } from '../context/RestaurantsContext'
 
 const JobListDetail = (props) => {

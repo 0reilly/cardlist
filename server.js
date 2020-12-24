@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const db = require("./db");
+const db = require(".");
+const path = require("path")
 
 const stripe = require('stripe')('sk_test_51HX92ADV5bqQz6pN7MO2Mw29Rvr4MwGbWCobGAooTqMmx6vuZI3ZjYhAaA1N7msSDhza736yVjUpRrqVEgep2FM100GEOFJEwZ');
 
@@ -15,6 +16,12 @@ app.use(cors());
 const YOUR_DOMAIN = '';
 
 app.use(express.json())
+app.use(express.static("client/build"));
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, "client/build")));
+}
+
+
 app.post("/create-payment-intent", async (req, res) => {
     const { items } = req.body;
     // Create a PaymentIntent with the order amount and currency
