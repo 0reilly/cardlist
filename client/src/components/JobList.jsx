@@ -22,7 +22,7 @@ const JobList = (props) => {
 
     const handleApplyRedirect = (e, id, link) => {
         e.stopPropagation()
-        window.location.href = `${link}`; 
+        history.push(`${link}`)
     };
 
     const handleRestaurantSelect = (id) => {
