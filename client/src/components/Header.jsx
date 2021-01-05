@@ -6,10 +6,14 @@ const Header = () => {
         history.push(`/add-job`)
     };
     return (
-        <div>
-            <h1 className="font-weight-light display-1 text-center">
-                Product Roles <button onClick={(e)=> handleAddJob(e)} className="btn btn-warning">Post a job</button></h1>   
-        </div>
+        <>
+         <div class="row justify-content-center">
+             <div class="col-4 pl-5"><h1 >Product Roles </h1></div>
+             <div class="col-2 pt-2 ml-5"><button onClick={(e)=> handleAddJob(e)} className="btn btn-warning ">Post a job</button></div>
+           </div>
+        
+            
+        </>
     )
 }
 

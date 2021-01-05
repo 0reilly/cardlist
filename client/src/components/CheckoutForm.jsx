@@ -21,7 +21,7 @@ const CheckoutForm= (props) => {
     
     // Create PaymentIntent as soon as the page loads
     window
-      .fetch("/create-payment-intent", {
+      .fetch("http://localhost:3006/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -29,13 +29,15 @@ const CheckoutForm= (props) => {
         body: JSON.stringify({items: [{ id: "basic-job-post" }]})
       })
       .then(res => {
-          
+        console.log("res in server.js "+res.json)
         return res.json();
+
       })
       .then(data => {
         setClientSecret(data.clientSecret);
       });
   }, []);
+
   const cardStyle = {
     style: {
       base: {
@@ -90,9 +92,9 @@ const CheckoutForm= (props) => {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <div className="p-4"><button
+      <div className="row justify-content-center p-4"><button
         disabled={processing || disabled || succeeded}
-        className=" btn btn-primary"
+        className="col btn btn-primary"
       >
         <span id="button-text">
           {processing ? (

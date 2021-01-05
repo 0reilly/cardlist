@@ -4,10 +4,15 @@ import JobList from '../components/JobList'
 
 const Home = () => {
     return (
-        <div>
+        <>
             <Header/>
+
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
             <JobList/>
-        </div>
+        </>
     )
 }
 

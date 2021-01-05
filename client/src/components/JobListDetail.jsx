@@ -1,17 +1,19 @@
 import React, {useContext, useEffect} from 'react'
 import { useHistory ,useParams} from "react-router-dom"
-import RestaurantFinder from "../apis/RestaurantFinder"
-import { RestaurantsContext } from '../context/RestaurantsContext'
+import ReactDOM from "react-dom";
+import JobFinder from "../apis/JobFinder"
+import { JobsContext } from '../context/JobContext'
+import MDEditor from '@uiw/react-md-editor';
 
 const JobListDetail = (props) => {
-    const {restaurants, setRestaurants} = useContext(RestaurantsContext)
+    const {jobs, setJobs} = useContext(JobsContext)
     const {id} = useParams();
     let history = useHistory()
     useEffect( () => {
         const fetchData = async () => {
             try {
-                const response = await RestaurantFinder.get("/");
-                setRestaurants(response.data.data.restaurants)
+                const response = await JobFinder.get("/");
+                setJobs(response.data.data.jobs)
              } catch(err){
      
              }
@@ -21,12 +23,12 @@ const JobListDetail = (props) => {
 
     
 
-    const handleApplyRedirect = (e, id) => {
+    const handleApplyRedirect = (e, id, link) => {
         e.stopPropagation()
-        window.location.href = 'https://jobs.chipotle.com/'; 
+        window.location.assign(link);
     };
 
-    const handleRestaurantSelect = (id) => {
+    const handleJobSelect = (id) => {
         history.push(``)
     };
 
@@ -35,39 +37,41 @@ const JobListDetail = (props) => {
             <h2>Today's Product Jobs</h2>
             <table className="table table-hover table-dark"> 
                 <tbody>
-                    {restaurants && restaurants.map(restaurant => {
-                        if(restaurant.id === id){
+                    {jobs && jobs.map(job => {
+                        if(job.id === id){
                             return(
-                                <div className="">
-                                    <div className="p-4s"><tr className="p-4"onClick={() => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
-                                        <td className="pl-5 pr-5">{restaurant.name}</td>
-                                        <td className="pl-5 pr-5">{restaurant.location}</td>
-                                        <td className="pl-5 pr-5">Primary Tag</td>
-                                        <td className="pl-5 pr-5"><button onClick={(e) => handleApplyRedirect(e,restaurant.id)} className="btn btn-danger">Apply</button></td>
-                                    </tr></div>
-                                    
-                                    <tr>
-                                        <div className="p-5"><p>{restaurant.description}</p></div>
+                                <>
+                                <tr className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                                        <td className="pl-5 pr-5">{job.name}</td>
+                                        <td className="pl-5 pr-5">{job.location}</td>
+                                        <td className="pl-5 pr-5">{job.primary_tag}</td>
+                                        <td className="pl-5 pr-5"><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="btn btn-danger">Apply</button></td>
+                                    </tr>
+                            
+                                <tr>
+                                    <td colspan="999">
+                                        <div className="row justify-content-center"><MDEditor.Markdown className="p-3" source={job.description}/>  
+                                      <button onClick={(e) => handleApplyRedirect(e,job.id, job.link)} className=" btn btn-danger w-50 float">Apply for this position</button></div>
                                         
-                                    </tr> 
-                                </div>
+                                     
+                                    
+                                    </td>
+
+                                </tr>
+                                </>
+                                    
                                 
+                              
                             );
                         }
                         else{
                             return(
-                                <div className="">
-                                    <div className="p-4s">
-                                        <tr className="p-4"onClick={() => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
-                                            <td className="pl-5 pr-5">{restaurant.name}</td>
-                                            <td className="pl-5 pr-5">{restaurant.location}</td>
-                                            <td className="pl-5 pr-5">Primary Tag</td>
-                                            <td className="pl-5 pr-5"><button onClick={(e) => handleApplyRedirect(e,restaurant.id)} className="btn btn-danger">Apply</button></td>
-                                        </tr>
-                                    </div>
-                                    
-                                    
-                                </div>
+                                <tr className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                                        <td className="pl-5 pr-5">{job.name}</td>
+                                        <td className="pl-5 pr-5">{job.location}</td>
+                                        <td className="pl-5 pr-5">{job.primary_tag}</td>
+                                        <td className="pl-5 pr-5"><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="btn btn-danger">Apply</button></td>
+                                    </tr>
                                 
                             );
                         }

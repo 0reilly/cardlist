@@ -1,7 +1,8 @@
 import React from 'react';
 import {Switch, Route} from "react-router-dom";
-import { BrowserRouter as Router } from 'react-router-dom';
-import { RestaurantsContextProvider } from './context/RestaurantsContext';
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
+import { JobsContextProvider } from './context/JobContext';
+
 
 import Home from './routes/Home';
 import AddJob from './routes/AddJob';
@@ -13,18 +14,20 @@ const App = () => {
 
     return (
     <div>
-        <RestaurantsContextProvider>
+        <JobsContextProvider>
         <div className="container">
             <Router>
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/add-job" component={AddJob}/>
-                    <Route exact path="/restaurants/:id" component={JobDetailPage}/>
+                    <Route exact path="/jobs/:id" component={JobDetailPage}/>
                     <Route exact path="/success" component={PaymentSuccess}/>
+                    
+     
                 </Switch>
             </Router>
         </div>
-        </RestaurantsContextProvider>
+        </JobsContextProvider>
         
     </div>
     
