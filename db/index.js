@@ -17,6 +17,7 @@ port: process.env.PG_PORT
 
 const pool = new Pool(
   process.env.NODE_ENV === "production" ? proConfig : devConfig
+  
 );
 
 module.exports = {

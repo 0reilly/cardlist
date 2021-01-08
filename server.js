@@ -16,7 +16,7 @@ app.use(express.static('.'));
 const YOUR_DOMAIN = '';
 
 app.use(express.json())
-app.use(express.static("client/build"));
+//app.use(express.static("client/build"));
 
 if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "client/build")));
@@ -24,7 +24,7 @@ if(process.env.NODE_ENV === "production"){
 
 
 app.post("/create-payment-intent", async (req, res) => {
-    
+    console.log(req.body.items)
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       amount: 4900,
