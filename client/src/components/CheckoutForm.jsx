@@ -53,7 +53,7 @@ const CheckoutForm= (props) => {
 const paymentIntent = async (e) => {
   e.preventDefault();
   window
-      .fetch("/create-payment-intent", {
+      .fetch("http://localhost:3006/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
