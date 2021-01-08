@@ -24,7 +24,7 @@ if(process.env.NODE_ENV === "production"){
 
 
 app.post("/create-payment-intent", async (req, res) => {
-    console.log(req.body)
+    
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       amount: 4900,
@@ -33,6 +33,7 @@ app.post("/create-payment-intent", async (req, res) => {
     res.send({
       clientSecret: paymentIntent.client_secret
     });
+    console.log(paymentIntent)
   });
 
 
