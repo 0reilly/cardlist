@@ -53,7 +53,7 @@ const CheckoutForm= (props) => {
 const paymentIntent = async (e) => {
   e.preventDefault();
   window
-      .fetch("https://productroles.herokuapp.com/create-payment-intent", {
+      .fetch("/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
