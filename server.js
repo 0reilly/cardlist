@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const db = require("./db");
 const path = require("path")
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_ID);
+const stripe = require('stripe')('sk_test_51HX92ADV5bqQz6pN7MO2Mw29Rvr4MwGbWCobGAooTqMmx6vuZI3ZjYhAaA1N7msSDhza736yVjUpRrqVEgep2FM100GEOFJEwZ');
 
 const app = express();
 
