@@ -1,5 +1,10 @@
 import axios from "axios";
+require("dotenv").config();
+
+
+console.log(process.env.PORT)
+
 
 export default axios.create({
-    baseURL: "http://localhost:3006/api/v1/jobs"
+    baseURL: "http://productroles.herokuapp.com/api/v1/jobs"
 });

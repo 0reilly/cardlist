@@ -2,9 +2,9 @@ const { Pool } = require('pg')
 require("dotenv").config();
 
 
-// const proConfig = {
-//   connectionString: process.env.DATABASE_URL //heroku addons
-// }
+const proConfig = {
+   connectionString: process.env.DATABASE_URL //heroku addons
+ }
 
 
  const devConfig = {
@@ -16,7 +16,7 @@ port: process.env.PG_PORT
 }
 
 const pool = new Pool(
-  //process.env.NODE_ENV === "production" ? proConfig : 
+  process.env.NODE_ENV === "production" ? proConfig : 
   devConfig
 );
 

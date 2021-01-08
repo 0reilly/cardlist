@@ -9,6 +9,7 @@ const Home = () => {
 
             <div>&nbsp;</div>
             <div>&nbsp;</div>
+            {/* search by tag search bar or predefined  */}
             <div>&nbsp;</div>
             <div>&nbsp;</div>
             <JobList/>

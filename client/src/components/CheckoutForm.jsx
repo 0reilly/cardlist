@@ -15,29 +15,16 @@ const CheckoutForm= (props) => {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
-  let history = useHistory();
+  let history = useHistory(); 
   
   useEffect(() => {
-    
+    window.scrollTo(0, 0);
     // Create PaymentIntent as soon as the page loads
-    window
-      .fetch("http://localhost:3006/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({items: [{ id: "basic-job-post" }]})
-      })
-      .then(res => {
-        console.log("res in server.js "+res.json)
-        return res.json();
-
-      })
-      .then(data => {
-        setClientSecret(data.clientSecret);
-      });
+    
   }, []);
 
+
+  
   const cardStyle = {
     style: {
       base: {
@@ -62,8 +49,30 @@ const CheckoutForm= (props) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+const paymentIntent = async (e) => {
+  e.preventDefault();
+  window
+      .fetch("http://localhost:3006/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({items: [{ price: props.price }]})
+      })
+      .then(res => {
+        
+        return res.json();
+        
+      })
+      .then(data => {
+        console.log("payment intent created"+data.clientSecret)
+        handleSubmit(data.clientSecret);
+      });
+}
+
+  const handleSubmit = async (clientSecret) => {
+    console.log("confirming payment")
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -90,9 +99,9 @@ const CheckoutForm= (props) => {
         props.form();
   }
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={paymentIntent}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <div className="row justify-content-center p-4"><button
+      <div className={succeeded ? "p-4 row justified-content-center result-message hidden" : "p-4 row justified-content-center result-message" }><button
         disabled={processing || disabled || succeeded}
         className="col btn btn-primary"
       >
@@ -100,8 +109,8 @@ const CheckoutForm= (props) => {
           {processing ? (
             <div className="spinner" id="spinner"></div>
           ) : (
-            "Post Job Ad - $"
-          )}
+            "Post Job Ad"
+          )} ${props.price}
         </span>
       </button></div>
       {/* Show any error that happens when processing the payment */}
@@ -111,12 +120,19 @@ const CheckoutForm= (props) => {
         </div>
       )}
       {/* Show a success message upon completion */}
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded! View your new listing on the Home page! 
-        <button className="btn btn-primary" onClick={goHome}>
+      <div className={succeeded ? "p-4 justify-content-center result-message" : "p-4 justify-content-center result-message hidden"}>
+        <div class="row">
+          <button className="btn btn-primary" onClick={goHome}>
           Home.
-        </button> An order summary will be emailed to you.
-      </p>
+          </button>
+        </div>
+        <div class="row">
+        <p>
+        Payment succeeded! View your new listing on the Home page!  An order summary will be emailed to you.
+        </p>
+        </div>
+      </div>
+      
     </form>
   );
 }

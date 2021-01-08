@@ -6,6 +6,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import MDEditor from '@uiw/react-md-editor';
+import { HexColorPicker } from "react-colorful";
+import "react-colorful/dist/index.css";
+
 
 
 const JobForm = () => {
@@ -23,48 +26,16 @@ const JobForm = () => {
     const [billing, setBilling] = useState("");
     const [link, setLink] = useState("");
     const [message, setMessage] = useState("");
-    const [design, setDesign] = useState({
-        showLogo: {
-            select: true,
-            price: 49
-        },
-        applicantMatch: {
-            select: true,
-            price: 0
-        },
-        autoRenew: {
-            select: true,
-            price: 0
-        },
-        highlight: {
-            select: false,
-            price: 224
-        },
-        brandColor: {
-            select: false,
-            color: "#ff4742",
-            price: 599
-        },
-        stickyPostDay: {
-            select: false,
-            price: 147
-        },
-        stickyPostWeek: {
-            select: false,
-            price: 299
-        },
-        stickyPostMonth: {
-            select: false,
-            price: 897
-        },
-        
-    });
+    const [color, setColor] = useState("#ffffff");
+    const [price, setPrice] = useState(49);
+    const [highlight, setHighlight] = useState(false);
+    const [addBrand, setAddBrand] = useState(false);
 
     
     
+    
     const handleForm = async () => {
-   //  e.preventDefault();
-        console.log("in form")
+        console.log(color)
         try{
             const response = await JobFinder.post("/", {
                 name,
@@ -72,17 +43,31 @@ const JobForm = () => {
                 primary_tag: primaryTag,
                 description,
                 link,
+                highlight,
+                color
             })
             addJobs(response.data.data.job)
-            console.log("added to database")
+            console.log("added to db")
         } catch(err){
 
         }
     };
 
-    
-
-      
+    const handleAddon = (e, value) => {
+        console.log(value)
+        //e.preventDefault();
+        if(value === "brand"){
+            setAddBrand(!addBrand);
+            setPrice(price+20)
+            //console.log(price);
+        }
+        else if (value === "highlight") {
+            setColor("#fff9c9")
+            setHighlight(!highlight);
+            setPrice(price+30)
+            //console.log(price);
+        }
+    }
 
     return (
         <div>
@@ -132,6 +117,21 @@ const JobForm = () => {
                         <option value="Product Manager Intern">Product Manager Intern</option>
                         </select>
                     </div>
+                    
+                    <div className="p-4"><h4  className="text-center">Design Your Job Post</h4></div>
+                    <div className="pb-4">
+                        <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" defaultChecked/><span className="pl-2">Just a basic post. (+$49)</span></p>
+                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" value="2"/><span className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</span></p>
+                        <p><input onChange={(e) => handleAddon(e, "brand")} type="radio" name="addon" value="3" />
+                        
+                        <span className="pl-2">Highlight with your company's brand color (+$30) (2X MORE VIEWS)</span></p>
+                        <HexColorPicker onChange={setColor}/>
+                    </div>
+                    
+
+
+                    <h4  className="text-center">Jobs Details</h4>
+
                     <div className="pt-2 pb-2">
                         <span>DESCRIPTION</span>
                         <div className="container">
@@ -174,7 +174,7 @@ const JobForm = () => {
                     </div>
                     <div className="p-4">
                         <Elements  stripe={promise}>
-                            <CheckoutForm form={handleForm}/>
+                            <CheckoutForm price={price} form={handleForm}/>
                         </Elements>
                         </div>
                     

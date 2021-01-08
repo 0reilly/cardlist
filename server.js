@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const db = require("./db");
 const path = require("path")
 
-const stripe = require('stripe')('sk_test_51HX92ADV5bqQz6pN7MO2Mw29Rvr4MwGbWCobGAooTqMmx6vuZI3ZjYhAaA1N7msSDhza736yVjUpRrqVEgep2FM100GEOFJEwZ');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_ID);
 
 const app = express();
 
@@ -18,16 +18,16 @@ const YOUR_DOMAIN = '';
 app.use(express.json())
 //app.use(express.static("client/build"));
 
-/* if(process.env.NODE_ENV === "production"){
+if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "client/build")));
-} */
+} 
 
 
 app.post("/create-payment-intent", async (req, res) => {
-    const { items } = req.body;
+    console.log(req.body)
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 29900,
+      amount: 4900,
       currency: "usd"
     });
     res.send({
@@ -78,7 +78,8 @@ app.get("/api/v1/jobs/:id", async (req, res) => {
 //Create a job
 app.post("/api/v1/jobs", async (req, res) =>{
     try{
-        const results = await db.query("INSERT INTO jobs (name, location, description, link, primary_tag) values ($1, $2, $3, $4, $5) returning *", [req.body.name, req.body.location, req.body.description, req.body.link, req.body.primary_tag, ])
+
+        const results = await db.query("INSERT INTO jobs (name, location, description, link, primary_tag, highlight, color) values ($1, $2, $3, $4, $5, $6, $7) returning *", [req.body.name, req.body.location, req.body.description, req.body.link, req.body.primary_tag, req.body.highlight, req.body.color])
         res.status(201).json({
             status: "success",
             data: {

@@ -10,6 +10,7 @@ import JobDetailPage from "./routes/JobDetailPage";
 import PaymentSuccess from "./routes/PaymentSuccess";
 
 
+
 const App = () => {
 
     return (
@@ -17,14 +18,14 @@ const App = () => {
         <JobsContextProvider>
         <div className="container">
             <Router>
+           
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/add-job" component={AddJob}/>
                     <Route exact path="/jobs/:id" component={JobDetailPage}/>
                     <Route exact path="/success" component={PaymentSuccess}/>
-                    
-     
                 </Switch>
+                
             </Router>
         </div>
         </JobsContextProvider>
