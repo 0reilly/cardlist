@@ -58,13 +58,13 @@ const JobForm = () => {
         //e.preventDefault();
         if(value === "brand"){
             setAddBrand(!addBrand);
-            setPrice(price+2000)
+            setPrice(6900)
             //console.log(price);
         }
         else if (value === "highlight") {
             setColor("#fff9c9")
             setHighlight(!highlight);
-            setPrice(price+3000)
+            setPrice(7900)
             //console.log(price);
         }
     }
