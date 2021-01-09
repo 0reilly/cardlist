@@ -36,11 +36,16 @@ app.post("/create-payment-intent", async (req, res) => {
     console.log(paymentIntent)
   });
 
-  app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
+
+  app.get('/jobs/*', function(req, res) {
+      console.log(__dirname)
+    res.sendFile(path.join(__dirname, '/client/build/index.html'), function(err) {
+        
       if (err) {
         res.status(500).send(err)
       }
+
+      
     })
   })
 
