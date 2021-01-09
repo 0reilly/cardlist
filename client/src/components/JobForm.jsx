@@ -27,7 +27,7 @@ const JobForm = () => {
     const [link, setLink] = useState("");
     const [message, setMessage] = useState("");
     const [color, setColor] = useState("#ffffff");
-    const [price, setPrice] = useState(49);
+    const [price, setPrice] = useState(4900);
     const [highlight, setHighlight] = useState(false);
     const [addBrand, setAddBrand] = useState(false);
 
@@ -58,13 +58,13 @@ const JobForm = () => {
         //e.preventDefault();
         if(value === "brand"){
             setAddBrand(!addBrand);
-            setPrice(price+20)
+            setPrice(price+2000)
             //console.log(price);
         }
         else if (value === "highlight") {
             setColor("#fff9c9")
             setHighlight(!highlight);
-            setPrice(price+30)
+            setPrice(price+3000)
             //console.log(price);
         }
     }
