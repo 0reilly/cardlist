@@ -6,7 +6,7 @@ const AddJob = () => {
 
     return (
         <div>
-            <h1 className="text-center">Hire Product Roles</h1>
+            <JobHeader/>
             <JobForm/>
         </div>
     )
