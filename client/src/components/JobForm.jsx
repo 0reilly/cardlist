@@ -107,13 +107,16 @@ const JobForm = () => {
                         className="custom-select my-1 mr-sm-2">
                         <option enabled>Select a primary tag</option>
                         <option value="Product Manager">Product Manager</option>
+                        <option value="Senior Product Manager">Product Manager</option>
                         <option value="Technical Product Manager">Technical Product Manager</option>
                         <option value="Associate Product Manager">Associate Product Manager</option>
                         <option value="VP of Product">VP of Product</option>
+                        <option value="VP of Product">Director, Product Management</option>
                         <option value="Product Lead">Product Lead</option>
                         <option value="Product Designer">Product Designer</option>
                         <option value="Product Marketing Manager">Product Marketing Manager</option>
                         <option value="Product Owner">Product Owner</option>
+                        <option value="Product Analyst">Product Owner</option>
                         <option value="Product Manager Intern">Product Manager Intern</option>
                         </select>
                     </div>
