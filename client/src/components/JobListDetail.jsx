@@ -34,8 +34,8 @@ const JobListDetail = (props) => {
 
     return (
         <div className="list-group">
-            <h2>Today's Product Jobs</h2>
-            <table className="table table-hover"> 
+           <h2 class="col-4">Today's Product Jobs</h2><p class="col-4">(click each row to hide job description)</p>
+            <table className="table"> 
                 <tbody>
                     {jobs && jobs.map(job => {
                         if(job.id === id){

@@ -40,11 +40,9 @@ const JobList = (props) => {
     return (
         <div className="list-group">
             <h2 class="col-4">Today's Product Jobs</h2><p class="col-4">(click each row to view job description)</p>
-            
-            
             <table className="table"> 
                 <tbody>
-                    {jobs && jobs.map(job => {
+                    {jobs && jobs.sort((a,b) => a.id < b.id ? 1: -1).map(job => {
                         return(
                                     <tr bgcolor={job.color} className="p-4"onClick={() => handleJobSelect(job.id)} key={job.id}>
                                         <td className="pl-5 pr-5">{job.name}</td>
