@@ -11,7 +11,7 @@ const JobList = (props) => {
     let history = useHistory()
    
     useEffect( () => {
-     window.scrollTo(0, 0)
+     //window.scrollTo(0, 0)
         const fetchData = async () => {
             try {
                 const response = await JobFinder.get("/");
