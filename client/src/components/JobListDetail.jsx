@@ -37,7 +37,7 @@ const JobListDetail = (props) => {
            <h2 class="col-4">Today's Product Jobs</h2><p class="col-4">(click each row to hide job description)</p>
             <table className="table"> 
                 <tbody>
-                    {jobs && jobs.map(job => {
+                    {jobs && jobs.sort((a,b) => a.id < b.id ? 1: -1).map(job => {
                         if(job.id === id){
                             return(
                                 <>
