@@ -125,11 +125,8 @@ const JobForm = () => {
                     <div className="pb-4">
                         <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" defaultChecked/><span className="pl-2">Just a basic post. (+$49)</span></p>
                         <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" value="2"/><span className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</span></p>
-                        <p><input onChange={(e) => handleAddon(e, "brand")} type="radio" name="addon" value="3" />
-                        
-                        <span className="pl-2">Highlight with your company's brand color (+$30) (2X MORE VIEWS)</span></p>
-                        <HexColorPicker onChange={setColor}/>
-                    </div>
+                        {/* <p><input onChange={(e) => handleAddon(e, "pin")} type="radio" name="addon" value="2"/><span className="pl-2">Pin your post to the top for a week(+$40)  (4X MORE VIEWS)</span></p>*/}
+                    </div> 
                     
 
 
