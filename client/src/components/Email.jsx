@@ -4,7 +4,7 @@ import JobFinder from "../apis/JobFinder"
 
 const Email = () => {
     const [email, setEmail] = useState("");
-    
+    const [succeeded, setSucceeded] = useState(false);
 
     const handleSignup = async () => {
         console.log(email)
@@ -12,7 +12,7 @@ const Email = () => {
             const response = await JobFinder.post("/email", {
                 email
             })
-            
+            setSucceeded(true);
             console.log("added to email db")
         } catch(err){
 
@@ -31,6 +31,7 @@ const Email = () => {
                         type="text"
                         /></div>
              <div class="pl-3"><button onClick={(e)=> handleSignup(e)} className="btn btn-danger">Subscribe</button></div>
+             <div className={succeeded ? "pl-3 pt-2" : "hidden"}><p>Subscription confirmed!</p></div>
            </div>
         
         

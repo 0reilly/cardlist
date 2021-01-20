@@ -37,6 +37,8 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 
 
+
+
   app.get('/jobs/*', function(req, res) {
       console.log(__dirname)
     res.sendFile(path.join(__dirname, '/client/build/index.html'), function(err) {
@@ -115,7 +117,23 @@ app.post("/api/v1/jobs", async (req, res) =>{
     
 });
 
+//Create a job
+app.post("/api/v1/jobs/email", async (req, res) =>{
+  console.log(req)
+    try{
 
+        const results = await db.query("INSERT INTO subscribers (email) values ($1) returning *", [req.body.email])
+        res.status(201).json({
+            status: "success",
+            data: {
+                email: results.rows[0].email
+            }
+        })
+    }catch(err){
+        console.log(err);
+    }
+    
+});
 
 
 
