@@ -12,7 +12,9 @@ const JobList = (props) => {
    
     useEffect( () => {
      //window.scrollTo(0, 0)
+     console.log(process.env.NODE_ENV)
         const fetchData = async () => {
+           
             try {
                 const response = await JobFinder.get("/");
                 setJobs(response.data.data.jobs)

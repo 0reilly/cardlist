@@ -3,12 +3,13 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const db = require("./db");
+const keys = require('./config/keys');
 const path = require("path")
 
-const stripe = require('stripe')(db.stripesecret);
+
 
 const app = express();
-
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 app.use(cors());
 app.use(express.static('.'));
@@ -19,12 +20,17 @@ app.use(express.json())
 app.use(express.static("client/build"));
 
 if(process.env.NODE_ENV === "production"){
+  console.log(process.env.STRIPE_SECRET)
     app.use(express.static(path.join(__dirname, "client/build")));
+    const stripe = require('stripe')(keys.STRIPE_SECRET);
 } 
+else{
+  console.log(process.env.STRIPE_SECRET)
+}
 
 
 app.post("/create-payment-intent", async (req, res) => {
-  console.log(db.stripesecret)
+  console.log(db.secret)
     console.log(req.body.items[0].price)
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
@@ -65,6 +71,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
 //Get all jobs
 app.get("/api/v1/jobs", async (req, res) => {
+  console.log(db.secret)
     try {
         const results = await db.query("select * from jobs");
     res.status(200).json({
