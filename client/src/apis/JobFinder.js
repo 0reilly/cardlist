@@ -6,10 +6,8 @@ if(process.env.NODE_ENV === "production"){
     url = process.env.BASE_URL;
 }
 else{
-    export default axios.create({
-        
         url = "http://localhost:3006/api/v1/jobs";
-    });
+    
 }
 export default axios.create({
        
