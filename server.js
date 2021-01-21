@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const db = require("./db");
 const path = require("path")
 
-const stripe = require('stripe')('sk_test_51HX92ADV5bqQz6pN7MO2Mw29Rvr4MwGbWCobGAooTqMmx6vuZI3ZjYhAaA1N7msSDhza736yVjUpRrqVEgep2FM100GEOFJEwZ');
+const stripe = require('stripe')(db.stripesecret);
 
 const app = express();
 
@@ -24,6 +24,7 @@ if(process.env.NODE_ENV === "production"){
 
 
 app.post("/create-payment-intent", async (req, res) => {
+  console.log(db.stripesecret)
     console.log(req.body.items[0].price)
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
