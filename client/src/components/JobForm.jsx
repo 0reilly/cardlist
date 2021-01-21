@@ -13,7 +13,7 @@ import "react-colorful/dist/index.css";
 
 const JobForm = () => {
   
-    const [promise,setPromise] = useState(() => loadStripe("pk_live_51HX92ADV5bqQz6pNkugJCzdENiJmAW3ghEm9ckAdKKhE7kGF55hASD3QQc12BwEXIXNCifNwzr4IBnkvElOpKVFK00Iecjr8sF"));
+    const [promise,setPromise] = useState(() => loadStripe(process.env.STRIPE_PUB));
 
     const history = useHistory();
     const {addJobs} = useContext(JobsContext);
