@@ -111,7 +111,7 @@ const paymentIntent = async (e) => {
             <div className="spinner" id="spinner"></div>
           ) : (
             "Post Job Ad"
-          )} ${props.price/1000}
+          )} ${props.price/100}
         </span>
       </button></div>
       {/* Show any error that happens when processing the payment */}
