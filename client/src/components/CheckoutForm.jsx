@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom"
-import "./App.css";
+import "../index.css";
 import {
   CardElement,
   useStripe,
