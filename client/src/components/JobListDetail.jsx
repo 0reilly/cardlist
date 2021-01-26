@@ -3,6 +3,7 @@ import { useHistory ,useParams} from "react-router-dom"
 import JobFinder from "../apis/JobFinder"
 import { JobsContext } from '../context/JobContext'
 import MDEditor from '@uiw/react-md-editor';
+import "../index.css";
 
 const JobListDetail = (props) => {
     const {jobs, setJobs} = useContext(JobsContext)
@@ -33,27 +34,30 @@ const JobListDetail = (props) => {
 
     return (
         <>
-            <div class="flex flex-col">
-                <div><h2 class="">Today's Product Jobs</h2></div>
-                <div><p class="">(click each row to view/hide job description)</p></div>
+            <div class="list-group mt-3 ">
+                <h5 className="ml-2">Today's Product Jobs</h5><p className="ml-2">(click each row to view job description)</p>
+           
             </div>
 
-            <table class="table-auto"> 
+            <table class="table table-condensed "> 
                 <tbody>
                     {jobs && jobs.sort((a,b) => a.id < b.id ? 1: -1).map(job => {
                         if(job.id === id){
                             return(
                                 <> 
+                                   
                                     <tr bgcolor={job.color} className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
-                                        <td class="text-xs">{job.name}</td>
-                                        <td class="text-xs">{job.location}</td>
-                                        <td class="text-xs">{job.primary_tag}</td>
-                                        <td class="text-xs"><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="">Apply</button></td>
+                                        <td >{job.name}</td>
+                                        <td >{job.location}</td>
+                                        <td >{job.primary_tag}</td>
+                                        <td ><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="btn btn-primary btn-sm">Apply</button></td>
                                     </tr>
+                        
                                     <tr>
-                                        <td colspan="999">
-                                            <div className=""><MDEditor.Markdown className="" source={job.description}/>  
-                                                <button onClick={(e) => handleApplyRedirect(e,job.id, job.link)} className=" w-50 float">Apply for this position</button>
+                                        <td className="container" colspan="999">
+                                            <div className="row justify-content-center pl-3 pr-3">
+                                                <MDEditor.Markdown className="" source={job.description}/>  
+                                                <button onClick={(e) => handleApplyRedirect(e,job.id, job.link)} className="mt-2 btn btn-primary">Apply for this position</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -62,11 +66,11 @@ const JobListDetail = (props) => {
                         }
                         else{
                             return(
-                                <tr bgcolor={job.color} className="p-4"onClick={() => handleJobSelect(job.id)} key={job.id}>
-                                    <td class="text-xs">{job.name}</td>
-                                    <td class="text-xs">{job.location}</td>
-                                    <td class="text-xs">{job.primary_tag}</td>
-                                    <td class="text-xs"><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="">Apply</button></td>
+                                <tr bgcolor={job.color} className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                                    <td >{job.name}</td>
+                                    <td >{job.location}</td>
+                                    <td >{job.primary_tag}</td>
+                                    <td ><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="btn btn-primary btn-sm">Apply</button></td>
                                 </tr>   
                             );
                         }

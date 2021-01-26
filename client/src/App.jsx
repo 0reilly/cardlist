@@ -14,9 +14,9 @@ import PaymentSuccess from "./routes/PaymentSuccess";
 const App = () => {
 
     return (
-    <div>
+    <>
         <JobsContextProvider>
-        <div class="container-fluid">
+        
             <Router>
            
                 <Switch>
@@ -27,10 +27,10 @@ const App = () => {
                 </Switch>
                 
             </Router>
-        </div>
+        
         </JobsContextProvider>
         
-    </div>
+    </>
     
 
     )

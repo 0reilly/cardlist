@@ -73,9 +73,9 @@ const JobForm = () => {
     return (
         <>
             
-            <div className="d-flex flex-row justify-content-center">
+            <div className="ml-4 mr-4  d-flex flex-row justify-content-center">
             <form action="">
-            <div className="card mt-4">
+            <div className="card">
                 <div class="card-header">
                     <h4  className="text-center">Let's Start</h4>
                 </div>
