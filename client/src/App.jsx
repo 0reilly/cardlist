@@ -16,7 +16,7 @@ const App = () => {
     return (
     <div>
         <JobsContextProvider>
-        <div className="container">
+        <div class="container-fluid">
             <Router>
            
                 <Switch>

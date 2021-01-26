@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom"
 import JobFinder from "../apis/JobFinder"
 import { JobsContext } from '../context/JobContext'
-import "./App.css";
+import "../index.css";
 
 
 const JobList = (props) => {
