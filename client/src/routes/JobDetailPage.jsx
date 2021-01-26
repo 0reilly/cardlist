@@ -7,11 +7,9 @@ const JobDetailPage = () => {
     return (
         <div>
             <Header/>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
+            
             <Email/>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
+           
             <JobListDetail/>
         </div>
     )

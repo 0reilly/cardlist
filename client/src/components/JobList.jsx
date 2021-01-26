@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom"
 import JobFinder from "../apis/JobFinder"
 import { JobsContext } from '../context/JobContext'
-import "./App.css";
+import "../index.css";
 
 
 const JobList = (props) => {
@@ -40,17 +40,17 @@ const JobList = (props) => {
     
 
     return (
-        <div className="list-group">
-            <h2 class="col-4">Today's Product Jobs</h2><p class="col-4">(click each row to view job description)</p>
-            <table className="table"> 
+        <div className="list-group mt-3 ">
+            <h5 className="ml-2">Today's Product Jobs</h5><p className="ml-2">(click each row to view job description)</p>
+            <table className="table table-condensed"> 
                 <tbody>
                     {jobs && jobs.sort((a,b) => a.id < b.id ? 1: -1).map(job => {
                         return(
-                                    <tr bgcolor={job.color} className="p-4"onClick={() => handleJobSelect(job.id)} key={job.id}>
-                                        <td className="pl-5 pr-5">{job.name}</td>
-                                        <td className="pl-5 pr-5">{job.location}</td>
-                                        <td className="pl-5 pr-5">{job.primary_tag}</td>
-                                        <td className="pl-5 pr-5"><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="btn btn-primary">Apply</button></td>
+                                    <tr bgcolor={job.color} className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                                        <td >{job.name}</td>
+                                        <td >{job.location}</td>
+                                        <td >{job.primary_tag}</td>
+                                        <td ><button onClick={(e) => handleApplyRedirect(e,job.id,job.link)} className="btn btn-primary btn-sm">Apply</button></td>
                                     </tr>
                         );
                         

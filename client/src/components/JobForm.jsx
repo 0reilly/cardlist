@@ -71,12 +71,15 @@ const JobForm = () => {
     }
 
     return (
-        <div>
+        <>
             
-            <div className="d-flex flex-row justify-content-center mb-4 pt-5">
+            <div className="ml-4 mr-4  d-flex flex-row justify-content-center">
             <form action="">
-                <div className="p-4">
+            <div className="card">
+                <div class="card-header">
                     <h4  className="text-center">Let's Start</h4>
+                </div>
+                    <div className="card-body">
                     <div className="pt-2 pb-2">
                         <span className="head">COMPANY NAME</span>
                         <input 
@@ -121,18 +124,6 @@ const JobForm = () => {
                         <option value="Product Manager Intern">Product Manager Intern</option>
                         </select>
                     </div>
-                    
-                    <div className="p-4"><h4  className="text-center">Design Your Job Post</h4></div>
-                    <div className="pb-4">
-                        <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" defaultChecked/><span className="pl-2">Just a basic post. (+$49)</span></p>
-                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" value="2"/><span className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</span></p>
-                        {/* <p><input onChange={(e) => handleAddon(e, "pin")} type="radio" name="addon" value="2"/><span className="pl-2">Pin your post to the top for a week(+$40)  (4X MORE VIEWS)</span></p>*/}
-                    </div> 
-                    
-
-
-                    <h4  className="text-center">Jobs Details</h4>
-
                     <div className="pt-2 pb-2">
                         <span>DESCRIPTION</span>
                         <div className="container">
@@ -151,9 +142,33 @@ const JobForm = () => {
                         type="text"
                         />
                     </div>
+                    </div>
+                    </div>
+                    <div className="card mt-5">
+                        <div className="card-header">
+                            <h4  className="text-center">Design Your Job Post</h4>
+                        </div>
+                       <div className="card-body">
+                       <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" defaultChecked/><span className="pl-2">Just a basic post. (+$49)</span></p>
+                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" value="2"/><span className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</span></p>
+                        
+                       </div>
+                    </div>
                     
-                    <div className="pt-4">
-                    <h4 className="text-center">Finalize Listing</h4>
+                        
+                   
+                    
+                
+
+                    
+                    
+                    
+                    
+                    <div className="card mt-5 mb-5">
+                        <div className="card-header">
+                            <h4 className="text-center">Finalize Listing</h4>
+                        </div>
+                    <div className="card-body">
                     <div className="pt-2 pb-2">
                         <span>COMPANY EMAIL</span>
                         <input
@@ -173,25 +188,22 @@ const JobForm = () => {
                         placehold="e.g. your company's full name and full invoice address, including building, street, city, and country"
                         />
                     </div>
-                    <div className="p-4">
+                    <div className="pt-4">
                         <Elements  stripe={promise}>
                             <CheckoutForm price={price} form={handleForm}/>
                         </Elements>
-                        </div>
-                    
                     </div>
+                    </div>
+                </div>
                     
                     
                     
-                     </div>
-                </form>
+                    
+            </form>
         </div>
-        </div>
+        </>
         
         
     )
 }
-
-
-
 export default JobForm
