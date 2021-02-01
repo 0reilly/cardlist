@@ -20,12 +20,12 @@ app.use(express.static("client/build"));
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 if(process.env.NODE_ENV === "production"){
-  
+  console.log(process.env.STRIPE_SECRET)
   app.use(express.static(path.join(__dirname, "client/build")));
     
 } 
 else{
-  
+  console.log(process.env.STRIPE_SECRET)
   //const stripe = require('stripe')(process.env.SECRET);
 }
 

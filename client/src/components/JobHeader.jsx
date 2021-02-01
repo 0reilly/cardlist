@@ -7,11 +7,10 @@ const Header = () => {
     };
     return (
         <>
-         <div class="row justify-content-center">
-             <div class="m-3"><h4 className="text-center">Hire Product Roles</h4></div>
-             <div class="m-3 "><button onClick={(e)=> handleAddJob(e)} className="btn btn-warning ">Back</button></div>
+         <div class="row justify-content-end">
+             <div class="col-3 mt-2"><h4 className="text-center">Hire Miami Tech Roles</h4></div>
+             <div class="col-5 mt-2"><button onClick={(e)=> handleAddJob(e)} className="btn btn-warning ">Back</button></div>
            </div>
-        
             
         </>
     )

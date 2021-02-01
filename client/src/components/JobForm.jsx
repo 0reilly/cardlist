@@ -6,7 +6,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import MDEditor from '@uiw/react-md-editor';
-import { HexColorPicker } from "react-colorful";
 import "react-colorful/dist/index.css";
 
 
@@ -14,7 +13,7 @@ import "react-colorful/dist/index.css";
 const JobForm = () => {
   
     
-    const [promise,setPromise] = useState(() => loadStripe("pk_live_51HX92ADV5bqQz6pNkugJCzdENiJmAW3ghEm9ckAdKKhE7kGF55hASD3QQc12BwEXIXNCifNwzr4IBnkvElOpKVFK00Iecjr8sF"));
+    const [promise,setPromise] = useState(() => loadStripe("pk_test_51HX92ADV5bqQz6pNUHpNfJziKCFf5lOBPO6A30apaEDI0Yb0jvwOmQCcebkay4TIcs2JIsrNxQs9vN8NImlsaevO0030bqBsJQ"));
 
     const history = useHistory();
     const {addJobs} = useContext(JobsContext);
@@ -56,24 +55,19 @@ const JobForm = () => {
 
     const handleAddon = (e, value) => {
         console.log(value)
-        //e.preventDefault();
-        if(value === "brand"){
-            setAddBrand(!addBrand);
-            setPrice(6900)
-            //console.log(price);
+        if(value === "none"){
+            setPrice(4900)
         }
         else if (value === "highlight") {
-            setColor("#fff9c9")
-            setHighlight(!highlight);
+            setHighlight(true);
             setPrice(7900)
-            //console.log(price);
         }
     }
 
     return (
         <>
             
-            <div className="ml-4 mr-4  d-flex flex-row justify-content-center">
+            <div className="ml-4 mr-4 mt-4  d-flex flex-row justify-content-center">
             <form action="">
             <div className="card">
                 <div class="card-header">
@@ -110,18 +104,17 @@ const JobForm = () => {
                         onChange={(e) => setPrimaryTag(e.target.value)}
                         className="custom-select my-1 mr-sm-2">
                         <option enabled>Select a primary tag</option>
-                        <option value="Product Manager">Product Manager</option>
-                        <option value="Senior Product Manager">Senior Product Manager</option>
-                        <option value="Technical Product Manager">Technical Product Manager</option>
-                        <option value="Associate Product Manager">Associate Product Manager</option>
-                        <option value="VP of Product">VP of Product</option>
-                        <option value="Director Product Management">Director, Product Management</option>
-                        <option value="Product Lead">Product Lead</option>
-                        <option value="Product Designer">Product Designer</option>
-                        <option value="Product Marketing Manager">Product Marketing Manager</option>
-                        <option value="Product Owner">Product Owner</option>
-                        <option value="Product Analyst">Product Analyst</option>
-                        <option value="Product Manager Intern">Product Manager Intern</option>
+                        <option value="Product Management">Product Management</option>
+                        <option value="Software Development">Software Development</option>
+                        <option value="Customer Support">Customer Support</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Design">Design</option>
+                        <option value="Full Stack">Front End</option>
+                        <option value="Front End">Front End</option>
+                        <option value="Back End">Back End</option>
+                        <option value="Legal">Legal</option>
+                        <option value="Quality Assurance">Quality Assurance</option>
                         </select>
                     </div>
                     <div className="pt-2 pb-2">
@@ -130,7 +123,10 @@ const JobForm = () => {
                         <MDEditor
                             value={description}
                             onChange={setDescription}
-                            preview='edit' />
+                            autoFocus={0}
+                            preview="edit"
+
+                            />
                         </div>
                     </div>
                     <div className="pt-2 pb-2">
@@ -149,8 +145,8 @@ const JobForm = () => {
                             <h4  className="text-center">Design Your Job Post</h4>
                         </div>
                        <div className="card-body">
-                       <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" defaultChecked/><span className="pl-2">Just a basic post. (+$49)</span></p>
-                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" value="2"/><span className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</span></p>
+                       <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" id="1" defaultChecked/><label for="1" className="pl-2">Just a basic post. (+$49)</label></p>
+                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" id="2" value="2"/><label for="2" className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</label></p>
                         
                        </div>
                     </div>

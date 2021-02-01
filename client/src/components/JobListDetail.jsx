@@ -1,9 +1,9 @@
 import React, {useContext, useEffect} from 'react'
 import { useHistory ,useParams} from "react-router-dom"
+import ReactDOM from "react-dom";
 import JobFinder from "../apis/JobFinder"
 import { JobsContext } from '../context/JobContext'
 import MDEditor from '@uiw/react-md-editor';
-import "../index.css";
 
 const JobListDetail = (props) => {
     const {jobs, setJobs} = useContext(JobsContext)
@@ -34,7 +34,7 @@ const JobListDetail = (props) => {
 
     return (
         <>
-            <div class="list-group mt-3 ">
+        <div class="list-group mt-3 ">
                 <h5 className="ml-2">Today's Product Jobs</h5><p className="ml-2">(click each row to view job description)</p>
            
             </div>
@@ -46,7 +46,7 @@ const JobListDetail = (props) => {
                             return(
                                 <> 
                                    
-                                    <tr bgcolor={job.color} className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                                    <tr className={job.color==='#fff9c9' ? "highlight" : "none" } onClick={() => handleJobSelect(job.id)} key={job.id}>
                                         <td >{job.name}</td>
                                         <td >{job.location}</td>
                                         <td >{job.primary_tag}</td>
@@ -66,7 +66,7 @@ const JobListDetail = (props) => {
                         }
                         else{
                             return(
-                                <tr bgcolor={job.color} className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                                <tr className={job.color==='#fff9c9' ? "highlight" : "none" } onClick={() => handleJobSelect(job.id)} key={job.id}>
                                     <td >{job.name}</td>
                                     <td >{job.location}</td>
                                     <td >{job.primary_tag}</td>
@@ -80,7 +80,6 @@ const JobListDetail = (props) => {
                 </tbody>
             </table>
            </>
-       
     )
 }
 

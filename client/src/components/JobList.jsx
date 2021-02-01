@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom"
 import JobFinder from "../apis/JobFinder"
 import { JobsContext } from '../context/JobContext'
-import "../index.css";
+import "./App.css";
 
 
 const JobList = (props) => {
@@ -46,7 +46,8 @@ const JobList = (props) => {
                 <tbody>
                     {jobs && jobs.sort((a,b) => a.id < b.id ? 1: -1).map(job => {
                         return(
-                                    <tr bgcolor={job.color} className=""onClick={() => handleJobSelect(job.id)} key={job.id}>
+                            
+                                    <tr className={job.color==='#fff9c9' ? "highlight" : "none" } onClick={() => handleJobSelect(job.id)} key={job.id}>
                                         <td >{job.name}</td>
                                         <td >{job.location}</td>
                                         <td >{job.primary_tag}</td>
