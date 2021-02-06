@@ -31,7 +31,7 @@ const Email = () => {
                    type="text"
                    /></div>
         <button onClick={(e)=> handleSignup(e)} className=" btn btn-danger">Subscribe</button></div>
-
+        
    
         <div className={succeeded ? "pl-4 pt-2" : "hidden"}><p>Subscription confirmed!</p></div>
       </div>
