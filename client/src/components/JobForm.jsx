@@ -59,7 +59,7 @@ const JobForm = () => {
             setPrice(4900)
         }
         else if (value === "highlight") {
-            setHighlight(true);
+            setColor("#fff9c9");
             setPrice(7900)
         }
     }
@@ -104,17 +104,18 @@ const JobForm = () => {
                         onChange={(e) => setPrimaryTag(e.target.value)}
                         className="custom-select my-1 mr-sm-2">
                         <option enabled>Select a primary tag</option>
-                        <option value="Product Management">Product Management</option>
-                        <option value="Software Development">Software Development</option>
-                        <option value="Customer Support">Customer Support</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Design">Design</option>
-                        <option value="Full Stack">Front End</option>
-                        <option value="Front End">Front End</option>
-                        <option value="Back End">Back End</option>
-                        <option value="Legal">Legal</option>
-                        <option value="Quality Assurance">Quality Assurance</option>
+                        <option value="Product Manager">Product Manager</option>
+                        <option value="Senior Product Manager">Senior Product Manager</option>
+                        <option value="Technical Product Manager">Technical Product Manager</option>
+                        <option value="Associate Product Manager">Associate Product Manager</option>
+                        <option value="VP of Product">VP of Product</option>
+                        <option value="Director Product Management">Director, Product Management</option>
+                        <option value="Product Lead">Product Lead</option>
+                        <option value="Product Designer">Product Designer</option>
+                        <option value="Product Marketing Manager">Product Marketing Manager</option>
+                        <option value="Product Owner">Product Owner</option>
+                        <option value="Product Analyst">Product Analyst</option>
+                        <option value="Product Manager Intern">Product Manager Intern</option>
                         </select>
                     </div>
                     <div className="pt-2 pb-2">

@@ -22,7 +22,7 @@ const Email = () => {
     return (
         
         <div class="container-fluid mt-3">
-        <div class="row justify-content-center"><p className="pt-2 pl-2">Join other product people and get get a weekly email of all new #MiamiTech jobs! </p></div>
+        <div class="row justify-content-center"><p className="pt-2 pl-2">Join other product people and get a daily email of all new product jobs! </p></div>
         <div class="row justify-content-center"><div class="col-xs-8" ><input
                    value={email}
                    onChange={(e) => setEmail(e.target.value)}
