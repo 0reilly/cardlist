@@ -26,12 +26,11 @@ const App = () => {
             <Router>
            
                 <Switch>
-<<<<<<< HEAD
+
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/new-feature" component={NewFeature}/>
-=======
-                    <Route exact path="/" render={props => { ReactGA.pageview(props.location.pathname); }} component={Home}/>
->>>>>>> bbe143071de3ce927adaaf2cae0cb7129b384e5d
+
+ 
                     <Route exact path="/add-job" component={AddJob}/>
                     <Route exact path="/jobs/:id" component={JobDetailPage}/>
                     <Route exact path="/success" component={PaymentSuccess}/>
