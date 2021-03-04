@@ -6,7 +6,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import MDEditor from '@uiw/react-md-editor';
-import { HexColorPicker } from "react-colorful";
 import "react-colorful/dist/index.css";
 
 
@@ -14,7 +13,7 @@ import "react-colorful/dist/index.css";
 const JobForm = () => {
   
     
-    const [promise,setPromise] = useState(() => loadStripe("pk_live_51HX92ADV5bqQz6pNkugJCzdENiJmAW3ghEm9ckAdKKhE7kGF55hASD3QQc12BwEXIXNCifNwzr4IBnkvElOpKVFK00Iecjr8sF"));
+    const [promise,setPromise] = useState(() => loadStripe("pk_test_51HX92ADV5bqQz6pNUHpNfJziKCFf5lOBPO6A30apaEDI0Yb0jvwOmQCcebkay4TIcs2JIsrNxQs9vN8NImlsaevO0030bqBsJQ"));
 
     const history = useHistory();
     const {addJobs} = useContext(JobsContext);
@@ -56,27 +55,25 @@ const JobForm = () => {
 
     const handleAddon = (e, value) => {
         console.log(value)
-        //e.preventDefault();
-        if(value === "brand"){
-            setAddBrand(!addBrand);
-            setPrice(6900)
-            //console.log(price);
+        if(value === "none"){
+            setPrice(4900)
         }
         else if (value === "highlight") {
-            setColor("#fff9c9")
-            setHighlight(!highlight);
+            setColor("#fff9c9");
             setPrice(7900)
-            //console.log(price);
         }
     }
 
     return (
-        <div>
+        <>
             
-            <div className="d-flex flex-row justify-content-center mb-4 pt-5">
+            <div className="ml-4 mr-4 mt-4  d-flex flex-row justify-content-center">
             <form action="">
-                <div className="p-4">
+            <div className="card">
+                <div class="card-header">
                     <h4  className="text-center">Let's Start</h4>
+                </div>
+                    <div className="card-body">
                     <div className="pt-2 pb-2">
                         <span className="head">COMPANY NAME</span>
                         <input 
@@ -121,25 +118,16 @@ const JobForm = () => {
                         <option value="Product Manager Intern">Product Manager Intern</option>
                         </select>
                     </div>
-                    
-                    <div className="p-4"><h4  className="text-center">Design Your Job Post</h4></div>
-                    <div className="pb-4">
-                        <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" defaultChecked/><span className="pl-2">Just a basic post. (+$49)</span></p>
-                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" value="2"/><span className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</span></p>
-                        {/* <p><input onChange={(e) => handleAddon(e, "pin")} type="radio" name="addon" value="2"/><span className="pl-2">Pin your post to the top for a week(+$40)  (4X MORE VIEWS)</span></p>*/}
-                    </div> 
-                    
-
-
-                    <h4  className="text-center">Jobs Details</h4>
-
                     <div className="pt-2 pb-2">
                         <span>DESCRIPTION</span>
                         <div className="container">
                         <MDEditor
                             value={description}
                             onChange={setDescription}
-                            preview='edit' />
+                            autoFocus={0}
+                            preview="edit"
+
+                            />
                         </div>
                     </div>
                     <div className="pt-2 pb-2">
@@ -151,9 +139,33 @@ const JobForm = () => {
                         type="text"
                         />
                     </div>
+                    </div>
+                    </div>
+                    <div className="card mt-5">
+                        <div className="card-header">
+                            <h4  className="text-center">Design Your Job Post</h4>
+                        </div>
+                       <div className="card-body">
+                       <p><input onChange={(e) => handleAddon(e, "none")} type="radio" name="addon" value="1" id="1" defaultChecked/><label for="1" className="pl-2">Just a basic post. (+$49)</label></p>
+                        <p><input onChange={(e) => handleAddon(e, "highlight")} type="radio" name="addon" id="2" value="2"/><label for="2" className="pl-2">Highlight your post in Yellow (+$20)  (2X MORE VIEWS)</label></p>
+                        
+                       </div>
+                    </div>
                     
-                    <div className="pt-4">
-                    <h4 className="text-center">Finalize Listing</h4>
+                        
+                   
+                    
+                
+
+                    
+                    
+                    
+                    
+                    <div className="card mt-5 mb-5">
+                        <div className="card-header">
+                            <h4 className="text-center">Finalize Listing</h4>
+                        </div>
+                    <div className="card-body">
                     <div className="pt-2 pb-2">
                         <span>COMPANY EMAIL</span>
                         <input
@@ -173,20 +185,20 @@ const JobForm = () => {
                         placehold="e.g. your company's full name and full invoice address, including building, street, city, and country"
                         />
                     </div>
-                    <div className="p-4">
+                    <div className="pt-4">
                         <Elements  stripe={promise}>
                             <CheckoutForm price={price} form={handleForm}/>
                         </Elements>
-                        </div>
-                    
                     </div>
+                    </div>
+                </div>
                     
                     
                     
-                     </div>
-                </form>
+                    
+            </form>
         </div>
-        </div>
+        </>
         
         
     )

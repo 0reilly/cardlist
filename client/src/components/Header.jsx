@@ -5,13 +5,17 @@ const Header = () => {
     const handleAddJob = () => {
         history.push(`/add-job`)
     };
+    const handleNewFeature = () => {
+        history.push(`/new-feature`)
+    };
     return (
         <>
-         <div class="pt-4 row justify-content-center">
-             <div class="col-4 pl-5"><h1 >Product Hiring</h1></div>
-             <div class="col-2 pt-2 ml-5"><button onClick={(e)=> handleAddJob(e)} className="btn btn-warning ">Post a job</button></div>
+         <div class="row justify-content-end">
+         <div class="col-4 mt-2"><button onClick={(e)=> handleNewFeature(e)} className="btn btn-warning ">Request a new feature</button></div>
+         
+             <div class="col-4 mt-2 "><h4 className="text-center">Product Hiring</h4></div>
+             <div class="col-4 mt-2"><button onClick={(e)=> handleAddJob(e)} className="btn btn-warning ">Post a job</button></div>
            </div>
-        
             
         </>
     )

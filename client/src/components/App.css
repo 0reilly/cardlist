@@ -1,3 +1,20 @@
+.highlight {
+  background-color : #fff9c9;
+}
+.highlight:hover{
+  
+  background-color : #ffff77;
+}
+
+
+.none:hover{
+  background-color : #ebebeb;
+}
+
+.table-condensed{
+  font-size: 11px;
+}
+
 .result-message {
     line-height: 22px;
     font-size: 16px;

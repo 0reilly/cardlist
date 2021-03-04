@@ -13,7 +13,7 @@ const Email = () => {
                 email
             })
             setSucceeded(true);
-            console.log("added to email db")
+            
         } catch(err){
 
         }
@@ -21,18 +21,20 @@ const Email = () => {
 
     return (
         
-         <div class="row justify-content-center">
-             <div class=""><p>Join other product people and get get a weekly email of all new product jobs </p></div>
-             <div class="pl-3"><input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="email"
-                        className="form-control"
-                        type="text"
-                        /></div>
-             <div class="pl-3"><button onClick={(e)=> handleSignup(e)} className="btn btn-danger">Subscribe</button></div>
-             <div className={succeeded ? "pl-3 pt-2" : "hidden"}><p>Subscription confirmed!</p></div>
-           </div>
+        <div class="container-fluid mt-3">
+        <div class="row justify-content-center"><p className="pt-2 pl-2">Join other product people and get a daily email of all new product jobs! </p></div>
+        <div class="row justify-content-center"><div class="col-xs-8" ><input
+                   value={email}
+                   onChange={(e) => setEmail(e.target.value)}
+                   placeholder="email"
+                   className="form-control"
+                   type="text"
+                   /></div>
+        <button onClick={(e)=> handleSignup(e)} className=" btn btn-danger">Subscribe</button></div>
+        
+   
+        <div className={succeeded ? "pl-4 pt-2" : "hidden"}><p>Subscription confirmed!</p></div>
+      </div>
         
         
     )
