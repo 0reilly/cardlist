@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "proxy": "http://localhost:3006",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,11 +14,14 @@
     "bootstrap": "^4.5.3",
     "dotenv": "^8.2.0",
     "node": "^12.18.4",
+    "otp-input-react": "^0.2.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-color": "^2.19.3",
     "react-colorful": "^4.4.4",
     "react-dom": "^16.13.1",
+    "react-otp-input": "^2.3.0",
+    "react-phone-number-input": "^3.1.18",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "stripe": "^8.129.0"

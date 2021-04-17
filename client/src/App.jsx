@@ -1,17 +1,17 @@
-import React from 'react';
+import React , {useState} from 'react';
+
 import {Switch, Route} from "react-router-dom";
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import { JobsContextProvider } from './context/JobContext';
 
-import Home from './routes/Home';
-import AddJob from './routes/AddJob';
-import JobDetailPage from "./routes/JobDetailPage";
-import PaymentSuccess from "./routes/PaymentSuccess";
-import NewFeature from "./routes/NewFeature";
+import Tap from "./routes/Tap";
 
-
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 const App = () => {
 
+    const [promise,setPromise] = useState(() => loadStripe("pk_test_51HX92ADV5bqQz6pNUHpNfJziKCFf5lOBPO6A30apaEDI0Yb0jvwOmQCcebkay4TIcs2JIsrNxQs9vN8NImlsaevO0030bqBsJQ"));
+    
     return (
         
     <div>
@@ -19,16 +19,11 @@ const App = () => {
         <JobsContextProvider>
         <div className="container">
             <Router>
-           
                 <Switch>
-
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/new-feature" component={NewFeature}/>
-
- 
-                    <Route exact path="/add-job" component={AddJob}/>
-                    <Route exact path="/jobs/:id" component={JobDetailPage}/>
-                    <Route exact path="/success" component={PaymentSuccess}/>
+                    <Elements stripe= {promise}>
+                        <Route exact path="/pay/:id" component={Tap}/>
+                    </Elements>
+                    
                 </Switch>
                 
             </Router>

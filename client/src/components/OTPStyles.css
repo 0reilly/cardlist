@@ -1,0 +1,65 @@
+h1, p {
+    font-family: Lato;
+  }
+  
+  .input{
+    width: 20rem;
+    height: 100%;
+    border: none;
+    outline: none;
+    position: relative;
+  font-size: 1.8rem;
+      letter-spacing: 2.2rem;
+      opacity: 0;
+  }
+  .otp{
+    height: 2rem;
+    position: relative;
+  }
+  .view{
+    pointer-events: none;
+    position: absolute;
+  bottom: -1.1rem;
+    display: flex;
+    letter-spacing: 2.55rem;
+       height: 2rem;
+    border: 0;
+    background-image: linear-gradient(
+      to left,
+      black 70%,
+      rgba(255, 255, 255, 0) 0%
+    );
+    background-position: bottom;
+    background-size: 3.2rem 1px;
+    background-repeat: repeat-x;
+    background-position-x: 2rem;
+    width: 18rem;
+    font-size: large;
+    margin-bottom: 1rem;
+  }
+  
+  .fakeView{
+   font-size: 2rem;
+    width: 2.2rem;
+    text-align: center;
+    margin-right: 1rem;
+  }
+  
+  .caret{
+   animation: blink-empty 1s infinite;
+      background-image: linear-gradient(black,black);
+      background-position: 1.4rem center;
+      background-repeat: no-repeat;
+      background-size: 1px 1.2em;
+      pointer-events: none;
+  }
+  @keyframes blink-empty {
+    30%, 75%{background-size:1px 1.2em;}
+    50% {background-size: 0 1.2em;}
+  }
+  
+  #divOuter {
+    width: 17.5rem;
+    overflow: hidden;
+    margin-left: 0.5rem;
+  }
