@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const db = require("./db");
 const path = require("path")
+
 const crypto = require('crypto');
 const base64url = require('base64url');
 const bodyParser = require('body-parser');
@@ -14,6 +15,8 @@ const client = require("twilio")(
   process.env.ACCOUNT_SID,
   process.env.AUTH_TOKEN
 );
+
+
 /** Sync */
 function randomStringAsBase64Url(size) {
   return base64url(crypto.randomBytes(size));
@@ -22,6 +25,7 @@ function randomStringAsBase64Url(size) {
 
 const app = express();
 
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('.'));
@@ -29,17 +33,14 @@ app.use(express.static('.'));
 const YOUR_DOMAIN = '';
 
 app.use(express.json())
-app.use(express.static("client/build"));
-const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
-if(process.env.NODE_ENV === "production"){
-  //console.log(process.env.STRIPE_SECRET)
-  app.use(express.static(path.join(__dirname, "client/build")));
-} 
-else{
-  //console.log(process.env.STRIPE_SECRET)
-  //const stripe = require('stripe')(process.env.SECRET);
-}
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
+app.use(express.static(path.join(__dirname, "client/build")));
+
+app.get('/pay/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
 
 function randomStringAsBase64Url(size) {
   return base64url(crypto.randomBytes(size));
@@ -83,7 +84,7 @@ app.post("/create-payment-intent", async (req, res) => {
             status: "OK",
             error: false,
             data: {
-              redirect: "http://localhost:3000/pay/"+token,
+              redirect: "http://localhost:3006/pay/"+token,
             },
           });
       }

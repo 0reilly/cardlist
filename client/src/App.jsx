@@ -2,8 +2,6 @@ import React , {useState} from 'react';
 
 import {Switch, Route} from "react-router-dom";
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
-import { JobsContextProvider } from './context/JobContext';
-
 import Tap from "./routes/Tap";
 
 import { Elements } from "@stripe/react-stripe-js";
@@ -16,7 +14,7 @@ const App = () => {
         
     <div>
         
-        <JobsContextProvider>
+       
         <div className="container">
             <Router>
                 <Switch>
@@ -28,7 +26,7 @@ const App = () => {
                 
             </Router>
         </div>
-        </JobsContextProvider>
+        
         
     </div>
     
