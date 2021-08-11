@@ -1,8 +1,8 @@
 import React from 'react'
-import Tap from '../components/Tap'
+import Tap from '../components/Tap';
 
 
-const TapPay = () => {
+const TapRoute = () => {
 
     return (
         <>
@@ -11,4 +11,4 @@ const TapPay = () => {
     )
 }
 
-export default TapPay
+export default TapRoute

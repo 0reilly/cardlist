@@ -50,7 +50,6 @@ const PayButton = (props) => {
   };
 
 const paymentIntent = async (e) => {
-  
   e.preventDefault();
   console.log("created payment intent")
   window

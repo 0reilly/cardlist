@@ -14,7 +14,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import StartVerify from '../apis/StartVerify';
 import CheckCode from '../apis/CheckCode';
-
+import ReactCodeInput from 'react-verification-code-input';
 import OTP from "./OTP";
 
 
@@ -32,7 +32,7 @@ const Tap = () => {
     
     //from server response
     const [items, setItems] = useState([]);
-    const [acctID, setAcctId] = useLocalStorage("acctID", "");
+    const [acctID, setAcctId] = useState("");
     const [storeName, setStoreName] = useState("");
     const [successURL, setSuccessURL] = useState("");
     const [returnURL, setReturnURL] = useState("");
@@ -62,7 +62,7 @@ const Tap = () => {
     //from stripe
     const [cusID, setCusID] = useState();
     const [paymentMethods, setPaymentMethods] = useState([]);
-    const [billing, setBilling] = useLocalStorage({});
+    const [billing, setBilling] = useState({});
     const [billingExists, setBillingExists] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [succeeded, setSucceeded] = useState(false);
@@ -106,6 +106,7 @@ const Tap = () => {
             setSubtotal(response.data.data.order[0].subtotal);
             setShipping(response.data.data.order[0].shipping);
             setTaxes(response.data.data.order[0].taxes);
+            
             setTotal(response.data.data.order[0].total);
             setSuccessURL(response.data.data.order[0].successurl);
             setReturnURL(response.data.data.order[0].returnurl);
@@ -192,42 +193,40 @@ const Tap = () => {
                 email,
                 phone
             })
-            console.log(response.data.data)
+            
             if(!response.data.data.error){
-            setPhoneEntered(true)
-            console.log("cusID: "+response.data.data.customer.id) 
             setCusID(response.data.data.customer.id)
-            if(response.data.data.customer.name != null){
-                setBilling(response.data.data);
-                setBillingExists(true)
-                //if billing, look up cards
-                try {
-                    const cards = await Cards.post("/", {
-                        id: response.data.data.customer.id
-                    });
-                    
-                    if(cards.data.data.paymentMethods.data.length > 0){
-                        console.log("card form false")
-                        setNewCardForm(false)
-                        setPaymentMethods(cards.data.data.paymentMethods.data)
+            setBilling(response.data.data);
+                if(response.data.data.customer.name != null){
+                    //if billing, look up cards
+                    try {
+                        const cards = await Cards.post("/", {
+                            id: response.data.data.customer.id
+                        });
                         
+                        if(cards.data.data.paymentMethods.data.length > 0){
+                            console.log("card form false")
+                            setNewCardForm(false)
+                            setPaymentMethods(cards.data.data.paymentMethods.data)
+                            
+                        }
+                        else{
+                            console.log("card form true ")
+                            setNewCardForm(true);
+                        }
+                        
+                    } catch(err){
+                    console.log(err)
                     }
-                    else{
-                        console.log("card form true ")
-                        setNewCardForm(true);
-                    }
-                       
-                 } catch(err){
-                   console.log(err)
-                 }
-            }
+
+                    
+                    setBillingExists(true)
+                }
+            setPhoneEntered(true)
             }
             else{
                 setPhoneError(true)
             }
-           
-            
-            
         } catch(err){
             console.log(err)
         }
@@ -294,50 +293,10 @@ const Tap = () => {
         setPhoneRequested(false)
     };
 
-    
 
     const cancelEditBilling = async () => {
         setBillingExists(true);
     };
-
-
-    
-
-    // Hook
-function useLocalStorage(key, initialValue) {
-    // State to store our value
-    // Pass initial state function to useState so logic is only executed once
-    const [storedValue, setStoredValue] = useState(() => {
-      try {
-        // Get from local storage by key
-        const item = window.localStorage.getItem(key);
-        // Parse stored json or if none return initialValue
-        return item ? JSON.parse(item) : initialValue;
-      } catch (error) {
-        // If error also return initialValue
-        console.log(error);
-        return initialValue;
-      }
-    });
-  
-    // Return a wrapped version of useState's setter function that ...
-    // ... persists the new value to localStorage.
-    const setValue = value => {
-      try {
-        // Allow value to be a function so we have same API as useState
-        const valueToStore =
-          value instanceof Function ? value(storedValue) : value;
-        // Save state
-        setStoredValue(valueToStore);
-        // Save to local storage
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      } catch (error) {
-        // A more advanced implementation would handle the error case
-        console.log(error);
-      }
-    };
-    return [storedValue, setValue];
-  }
 
   function isNumeric(n) {
     return !isNaN(parseInt(n)) && isFinite(n);
@@ -365,15 +324,15 @@ const requestCode = async () => {
     }
 }
 
-const verifyCode = async () => {
+const verifyCode = async (val) => {
     
-    console.log("verifying code: " +otp.join(""))
+    console.log("code: " +val)
    
     //setCodeRequested(true);
     try {
         const verify = await CheckCode.post("/", {
             phone,
-            code: otp.join("")
+            code: val
         });
         console.log(JSON.stringify(verify))
         if(verify.data){
@@ -499,8 +458,15 @@ const verifyCode = async () => {
                                 <>
                                 {phoneRequested && !phoneError? 
                                 <>
-                                <div >
-                                <OTP otp={otp} setOtp={setOtp} verifyCode={verifyCode}></OTP>
+                                <div className="text-center" >
+                                <ReactCodeInput 
+                                type="number"
+                                onComplete={(val) => verifyCode(val)}
+                                onChange={(val) => setOtp(val)}
+                                values={otp}
+                                fields={6}
+                                title="Enter Verification Code"
+                                />
                                 </div>
                                 
                                 </>
@@ -512,7 +478,9 @@ const verifyCode = async () => {
                                     <div className="col"><PhoneInput
                                         placeholder="Enter phone number"
                                         value={phone}
-                                        onChange={setPhone}/>
+                                        onChange={setPhone}
+                                        defaultCountry="US"
+                                        />
                                     </div>
                                 
                                 <div className="col"><button onClick={requestCode} className="row btn btn-primary" type="submit">
@@ -619,18 +587,20 @@ const verifyCode = async () => {
                                 <div className="col text-right">${subtotal/100}</div>
                                 </div>
                             </li>
-                            <li className="list-group-item">
+                            {shipping!=0 ? <li className="list-group-item">
                                 <div className="row">
                                 <div className="col">Shipping</div> 
                                 <div className="col text-right">${shipping/100}</div>
                                 </div>
-                            </li>
-                            <li className="list-group-item">
+                            </li> : null}
+                            
+                           <li className="list-group-item">
                                 <div className="row">
                                 <div className="col">Taxes</div> 
                                 <div className="col text-right">${taxes/100}</div>
                                 </div>
                             </li>
+                            
                             <li className="list-group-item">
                                 <div className="row">
                                 <div className="col">Total</div> 

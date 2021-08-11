@@ -1,9 +1,9 @@
 {
   "name": "client",
-  "proxy": "http://localhost:3006",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hashicorp/react-code-block": "^4.0.1",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -13,17 +13,21 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
     "dotenv": "^8.2.0",
+    "express-session": "^1.17.1",
     "node": "^12.18.4",
     "otp-input-react": "^0.2.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
+    "react-code-blocks": "^0.0.8",
     "react-color": "^2.19.3",
     "react-colorful": "^4.4.4",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-otp-input": "^2.3.0",
     "react-phone-number-input": "^3.1.18",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-verification-code-input": "^1.2.9",
     "stripe": "^8.129.0"
   },
   "scripts": {

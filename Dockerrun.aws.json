@@ -1,0 +1,11 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "adamoreilly/node-docker-eb"
+    },
+    "Ports": [
+      {
+        "ContainerPort": "3006"
+      }
+    ]
+  }

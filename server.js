@@ -3,17 +3,18 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const db = require("./db");
-const path = require("path")
-
+const path = require("path");
 const crypto = require('crypto');
 const base64url = require('base64url');
 const bodyParser = require('body-parser');
 const util = require('util');
 const url = require('url');
+const session = require("express-session");
 const { tokenize } = require("prismjs");
+const { resolve } = require("path");
 const client = require("twilio")(
   process.env.ACCOUNT_SID,
-  process.env.AUTH_TOKEN
+  process.env.AUTH_TOKEN 
 );
 
 
@@ -32,12 +33,23 @@ app.use(express.static('.'));
 
 const YOUR_DOMAIN = '';
 
-app.use(express.json())
+app.use(express.json());
+app.use(
+  session({
+    secret: "Set this to a random string that is kept secure",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.get('/pay/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
+app.get('/success/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 
@@ -56,6 +68,7 @@ app.post("/create-payment-intent", async (req, res) => {
       currency: "usd",
       setup_future_usage : "on_session",
       customer: req.body.customer,
+      on_behalf_of: req.body.account,
       transfer_data : { destination: req.body.account} ,
       application_fee_amount : Math.round((.034*req.body.amount))+30
     });
@@ -65,12 +78,63 @@ app.post("/create-payment-intent", async (req, res) => {
     console.log(paymentIntent)
   });
 
+  
+  app.post("/onboard-user", async (req, res) => {
+    console.log("onboard")
+    try {
+      const account = await stripe.accounts.create({type: "standard"});
+      req.session.accountID = account.id;
+      const origin = `${req.headers.origin}`;
+      const accountLinkURL = await generateAccountLink(account.id, origin);
+      res.send({ url: accountLinkURL });
+    } catch (err) {
+      res.status(500).send({
+        error: err.message,
+      });
+    }
+  });
+  
+  app.get("/onboard-user/refresh", async (req, res) => {
+    if (!req.session.accountID) {
+      res.redirect("/");
+      return;
+    }
+    try {
+      const { accountID } = req.session;
+      const origin = `${req.secure ? "https://" : "https://"}${req.headers.host}`;
+  
+      const accountLinkURL = await generateAccountLink(accountID, origin);
+      
+      //res.redirect(accountLinkURL);
+    } catch (err) {
+      res.status(500).send({
+        error: err.message,
+      });
+    }
+  });
+  
+  function generateAccountLink(accountID, origin) {
+    return result = stripe.accountLinks
+      .create({
+        type: "account_onboarding",
+        account: accountID,
+        refresh_url: `${origin}/onboard-user/refresh`,
+        return_url: `https://www.cardlist.co/success/${accountID}`,
+      })
+      .then((link) => link.url);
+
+      
+    
+    
+  }
+
   app.post("/new-order", async (req, res) => {
     var token = randomStringAsBase64Url(20);
-    var redirect = "https://tap.io/pay/"+token;
-    
+    //var redirect = "https://tap.io/pay/"+token;
+      
       try{
         var orderResults = await db.query('INSERT INTO orders (token, acctID, returnURL, successURL, storename, subtotal, shipping, taxes, total) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [token,req.body.acctID, req.body.returnURL, req.body.successURL,req.body.storename,req.body.subtotal, req.body.shipping, req.body.taxes, req.body.total]);
+      
       }
       catch(err){
         console.log(err);
@@ -78,13 +142,19 @@ app.post("/create-payment-intent", async (req, res) => {
         
       try{
         for (var i = 0; i < req.body.items.length; i++) {
-          var itemResults = db.query('INSERT INTO items (id, name, price) VALUES ($1, $2, $3) RETURNING *', [token, req.body.items[i].name, req.body.items[i].price]);
+          try {
+            var itemResults = db.query('INSERT INTO items (id, name, price) VALUES ($1, $2, $3) RETURNING *', [token, req.body.items[i].name, req.body.items[i].price]);
+          
+          } catch (error) {
+            
+          }
           } 
           res.status(200).json({
             status: "OK",
             error: false,
             data: {
-              redirect: "http://localhost:3006/pay/"+token,
+              redirect: "https://www.cardlist.co/pay/"+token,
+              
             },
           });
       }
@@ -99,6 +169,7 @@ app.get("/api/v1/orders/:id", async (req, res) => {
   console.log("getting order data");
   try {
     const order = await db.query("select * from orders where token = $1", [`${req.params.id}`]);
+    console.log(order)
     const items = await db.query("select * from items where id = $1", [`${req.params.id}`]);
     res.status(200).json({
       status: "OK",
@@ -262,7 +333,8 @@ app.post("/api/v1/cards", async (req, res) => {
 
 });
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-    console.log(`server is up and running on ${port}`);
+const port = process.env.PORT || 3006;
+app.listen(port, '0.0.0.0',() => {
+    console.log(`server is up and running on ${port},`);
+    
 });
